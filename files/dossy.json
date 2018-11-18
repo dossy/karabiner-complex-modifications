@@ -1,0 +1,181 @@
+{
+  "title": "Dossy's Karabiner-Elements complex modifications",
+  "rules": [
+    {
+      "description": "Dossy's CAPS LOCK/Fn + hjkl as arrow keys",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": { "mandatory": [ "caps_lock" ], "optional": [ "any" ] }
+          },
+          "to": [ { "key_code": "left_arrow" } ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": { "mandatory": [ "fn" ], "optional": [ "any" ] }
+          },
+          "to": [ { "key_code": "left_arrow" } ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": { "mandatory": [ "caps_lock" ], "optional": [ "any" ] }
+          },
+          "to": [ { "key_code": "down_arrow" } ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": { "mandatory": [ "fn" ], "optional": [ "any" ] }
+          },
+          "to": [ { "key_code": "down_arrow" } ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": { "mandatory": [ "caps_lock" ], "optional": [ "any" ] }
+          },
+          "to": [ { "key_code": "up_arrow" } ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": { "mandatory": [ "fn" ], "optional": [ "any" ] }
+          },
+          "to": [ { "key_code": "up_arrow" } ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": { "mandatory": [ "caps_lock" ], "optional": [ "any" ] }
+          },
+          "to": [ { "key_code": "right_arrow" } ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": { "mandatory": [ "fn" ], "optional": [ "any" ] }
+          },
+          "to": [ { "key_code": "right_arrow" } ]
+        }
+      ]
+    },
+    {
+      "description": "Dossy's CAPS LOCK/Fn + Space + hjkl as mouse movement",
+      "manipulators": [
+        {
+          "description": "Fn + Spacebar: toggle on",
+          "type": "basic",
+          "from": {
+            "simultaneous": [ { "key_code": "fn" }, { "key_code": "spacebar" } ],
+            "simultaneous_options": {
+              "key_down_order": "strict",
+              "key_up_order": "insensitive"
+            }
+          },
+          "to": [ { "set_variable": { "name": "dossy_mouse_keys_mode", "value": 1 } } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 0 } ],
+          "parameters": { "basic.simultaneous_threshold_milliseconds": 200 }
+        },
+        {
+          "description": "Fn + Spacebar: toggle off",
+          "type": "basic",
+          "from": {
+            "simultaneous": [ { "key_code": "fn" }, { "key_code": "spacebar" } ],
+            "simultaneous_options": {
+              "key_down_order": "strict",
+              "key_up_order": "insensitive"
+            }
+          },
+          "to": [ { "set_variable": { "name": "dossy_mouse_keys_mode", "value": 0 } } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ],
+          "parameters": { "basic.simultaneous_threshold_milliseconds": 200 }
+        },
+
+        {
+          "description": "h: move mouse left",
+          "type": "basic",
+          "from": { "key_code": "h" },
+          "to": [ { "mouse_key": { "x": -1536 } } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ]
+        },
+        {
+          "description": "j: move mouse down",
+          "type": "basic",
+          "from": { "key_code": "j" },
+          "to": [ { "mouse_key": { "y": 1536 } } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ]
+        },
+        {
+          "description": "k: move mouse up",
+          "type": "basic",
+          "from": { "key_code": "k" },
+          "to": [ { "mouse_key": { "y": -1536 } } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ]
+        },
+        {
+          "description": "l: move mouse right",
+          "type": "basic",
+          "from": { "key_code": "l" },
+          "to": [ { "mouse_key": { "x": 1536 } } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ]
+        },
+
+        {
+          "description": "Shift + h: scroll mouse left",
+          "type": "basic",
+          "from": { "key_code": "h", "modifiers": { "mandatory": [ "shift" ] } },
+          "to": [ { "mouse_key": { "horizontal_wheel": 32 } } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ]
+        },
+        {
+          "description": "Shift + j: scroll mouse up, screen down",
+          "type": "basic",
+          "from": { "key_code": "j", "modifiers": { "mandatory": [ "shift" ] } },
+          "to": [ { "mouse_key": { "vertical_wheel": 32 } } ],
+          "to": [ { "mouse_key": { "y": 1536 } } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ]
+        },
+        {
+          "description": "Shift + k: scroll mouse down, screen up",
+          "type": "basic",
+          "from": { "key_code": "k", "modifiers": { "mandatory": [ "shift" ] } },
+          "to": [ { "mouse_key": { "vertical_wheel": -32 } } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ]
+        },
+        {
+          "description": "Shift + l: scroll mouse right",
+          "type": "basic",
+          "from": { "key_code": "l", "modifiers": { "mandatory": [ "shift" ] } },
+          "to": [ { "mouse_key": { "horizontal_wheel": -32 } } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ]
+        },
+
+        {
+          "description": "Spacebar: left mouse click",
+          "type": "basic",
+          "from": { "key_code": "spacebar" },
+          "to": [ { "pointing_button": "button1" } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ]
+        },
+        {
+          "description": "Shift + Spacebar: right mouse click",
+          "type": "basic",
+          "from": { "key_code": "spacebar", "modifiers": { "mandatory": [ "shift" ] } },
+          "to": [ { "pointing_button": "button2" } ],
+          "conditions": [ { "type": "variable_if", "name": "dossy_mouse_keys_mode", "value": 1 } ]
+        }
+      ]
+    }
+  ]
+}
