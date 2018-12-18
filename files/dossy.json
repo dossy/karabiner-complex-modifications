@@ -2,6 +2,27 @@
   "title": "Dossy's Karabiner-Elements complex modifications",
   "rules": [
     {
+      "description": "Dossy's CAPS LOCK/Fn + Backtick as Escape",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "grave_accent_and_tilde",
+            "modifiers": { "mandatory": [ "caps_lock" ], "optional": [ "any" ] }
+          },
+          "to": [ { "key_code": "esscape" } ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "grave_accent_and_tilde",
+            "modifiers": { "mandatory": [ "fn" ], "optional": [ "any" ] }
+          },
+          "to": [ { "key_code": "escape" } ]
+        }
+      ]
+    },
+    {
       "description": "Dossy's CAPS LOCK/Fn + hjkl as arrow keys",
       "manipulators": [
         {
